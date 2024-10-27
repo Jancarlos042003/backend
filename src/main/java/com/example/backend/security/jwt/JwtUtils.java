@@ -6,14 +6,18 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -27,14 +31,20 @@ public class JwtUtils {
     private SecretKey key;
 
     // GENERAMOS EL TOKEN DE ACCESO
-    public String generateAccessToken(String username){
+    public String generateAccessToken(String username, Collection<? extends GrantedAuthority> authorities){
         Instant now = Instant.now();
         Instant expirationTime = now.plus(Long.parseLong(timeExpiration), ChronoUnit.MILLIS); // ChronoUnit.MILLIS indica que el valor que se está sumando está en milisegundos.
+
+        // Convertir los roles a una lista de strings
+        List<String> roles = authorities.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
 
         return Jwts.builder() // Constructor
                 .subject(username) // Sujeto basa en el username del usuario
                 .issuedAt(Date.from(now)) //Fecha de emisión. Convertir Instant a Date ya que issuedAt y expiration aceptan objetos de tipo Date
                 .expiration(Date.from(expirationTime)) // Fecha de expiración
+                .claim("roles", roles)
                 .signWith(key) // Firma del token, usando una clave secreta
                 .compact();
     }

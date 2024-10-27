@@ -67,7 +67,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         User user = (User) authResult.getPrincipal();
 
         //Generamos un token de acceso
-        String token = jwtUtils.generateAccessToken(user.getUsername());
+        String token = jwtUtils.generateAccessToken(user.getUsername(), user.getAuthorities());
 
         // Se agrega el token al encabezado
         response.addHeader("Authorization", "Bearer " + token);
