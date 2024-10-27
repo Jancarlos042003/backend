@@ -43,10 +43,14 @@ public class Libro {
 
     private BigDecimal precio;
     private BigDecimal descuento;
+
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
+
+    @Column(columnDefinition = "TEXT")
     private String resumen;
 
-    @Column(name = "vista_previa")
+    @Column(name = "vista_previa", columnDefinition = "TEXT")
     private String vistaPrevia;
 
     @Column(name = "img_portada")

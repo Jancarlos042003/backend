@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LibroDTO {
+public class    LibroDTO {
     @NotEmpty(message = "El título es obligatorio.")
     private String titulo;
 
