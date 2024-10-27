@@ -91,7 +91,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         // Permite peticiones desde cualquier origen
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
+                "http://localhost:5174",
                 "https://tu-libro-favorito.vercel.app"
         ));
 
