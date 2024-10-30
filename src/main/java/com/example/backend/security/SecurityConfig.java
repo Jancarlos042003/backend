@@ -73,6 +73,11 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/api/subcategoria").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.DELETE, "/api/subcategoria/**").hasRole("ADMIN");
 
+                    auth.requestMatchers(HttpMethod.GET ,"/api/resenia/**").permitAll();
+                    auth.requestMatchers(HttpMethod.POST ,"/api/resenia/**").hasRole("USER");
+                    auth.requestMatchers(HttpMethod.DELETE ,"/api/resenia/**").hasRole("USER");
+                    auth.requestMatchers(HttpMethod.PUT ,"/api/resenia/**").hasRole("USER");
+
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> {
