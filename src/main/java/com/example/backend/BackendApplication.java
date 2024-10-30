@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BackendApplication {
 
 	public static void main(String[] args) {
-		Dotenv dotenv = Dotenv.configure().load();
+		Dotenv dotenv = Dotenv.configure()
+				.ignoreIfMissing() // Esta es la clave - ignora si no encuentra el archivo
+				.load();
 		System.setProperty("MYSQLUSER", dotenv.get("MYSQLUSER"));
 		System.setProperty("MYSQLPASSWORD", dotenv.get("MYSQLPASSWORD"));
 		SpringApplication.run(BackendApplication.class, args);
