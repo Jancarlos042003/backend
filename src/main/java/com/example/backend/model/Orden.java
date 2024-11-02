@@ -32,11 +32,9 @@ public class Orden {
     private String estado;
 
     @Column(name = "fecha_creacion")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_pago")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime fechaPago;
 
     @Column(name = "url_aprobacion")
