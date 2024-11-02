@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,10 +33,10 @@ public class Libro {
     private String autor;
 
     @Column(name = "fecha_publicacion")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private LocalDate fechaPublicacion;
 
     @ManyToOne
-    @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
     @Column(unique = true)
