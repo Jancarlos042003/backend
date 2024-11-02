@@ -11,9 +11,12 @@ public class BackendApplication {
 		Dotenv dotenv = Dotenv.configure()
 				.ignoreIfMissing() // Esta es la clave - ignora si no encuentra el archivo
 				.load();
+
 		System.setProperty("MYSQLUSER", dotenv.get("MYSQLUSER"));
 		System.setProperty("MYSQLPASSWORD", dotenv.get("MYSQLPASSWORD"));
+		System.setProperty("CLIENT_ID", dotenv.get("CLIENT_ID"));
+		System.setProperty("SECRET", dotenv.get("SECRET"));
+
 		SpringApplication.run(BackendApplication.class, args);
 	}
-
 }

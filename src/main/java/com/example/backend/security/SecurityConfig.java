@@ -78,6 +78,8 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.DELETE ,"/api/resenia/**").hasRole("USER");
                     auth.requestMatchers(HttpMethod.PUT ,"/api/resenia/**").hasRole("USER");
 
+                    auth.requestMatchers(HttpMethod.POST ,"/api/pagos/**").hasRole("USER");
+
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> {
