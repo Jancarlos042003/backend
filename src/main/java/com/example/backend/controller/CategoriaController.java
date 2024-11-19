@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.CategoriaDTO;
+import com.example.backend.model.Categoria;
 import com.example.backend.service.CategoriaService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -20,6 +21,11 @@ public class CategoriaController {
     @GetMapping
     public ResponseEntity<?> mostrarCategorias(){
         return new ResponseEntity<>(categoriaService.mostrarCategorias(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> mostrarCategoria(@PathVariable Long id){
+        return new ResponseEntity<>(categoriaService.mostrarCategoria(id), HttpStatus.OK);
     }
 
     @PostMapping

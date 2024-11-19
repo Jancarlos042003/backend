@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.CategoriaDTO;
+import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.Categoria;
 import com.example.backend.repository.CategoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,6 +22,12 @@ public class CategoriaServiceImpl implements CategoriaService {
                 .nombre(categoria.getNombre())
                 .build();
         return categoriaRepository.save(nuevaCategoria);
+    }
+
+    @Override
+    public Categoria mostrarCategoria(Long id){
+        return categoriaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el ID " + id));
     }
 
     @Override
