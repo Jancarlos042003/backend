@@ -20,7 +20,6 @@ public class    LibroDTO {
     private String titulo;
 
     @NotNull(message = "El autor es obligatorio.")
-    @NotEmpty(message = "Debe haber al menos un autor.")
     private String autoresIds;
 
     @NotNull(message = "La fecha de publicación es obligatoria.")

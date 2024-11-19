@@ -77,22 +77,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional
     @Override
-    public Usuario actualizarUsuario(Long id, CrearUsuarioDTO usuarioActualizado) {
-        return usuarioRepository.findById(id)
-                .map(usuarioExistente -> {
-                    if (usuarioActualizado.getNombreCompleto() != null) {
-                        usuarioExistente.setNombreCompleto(usuarioActualizado.getNombreCompleto());
-                    }
-                    if (usuarioActualizado.getUsername() != null) {
-                        usuarioExistente.setUsername(usuarioActualizado.getUsername());
-                    }
-                    if (usuarioActualizado.getContrasenia() != null) {
-                        String contraseniaEncriptada = passwordEncoder.encode(usuarioActualizado.getContrasenia());
-                        usuarioExistente.setContrasenia(contraseniaEncriptada);
-                    }
-                    return usuarioRepository.save(usuarioExistente);
-                })
+    public Usuario actualizarUsuario(Long id, CrearUsuarioDTO usuario) {
+        Usuario usuarioEncontrado = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con el ID: " + id));
+
+        usuarioEncontrado.setNombreCompleto(usuario.getNombreCompleto());
+        usuarioEncontrado.setUsername(usuario.getUsername());
+        usuarioEncontrado.setContrasenia(passwordEncoder.encode(usuario.getContrasenia()));
+
+        return usuarioRepository.save(usuarioEncontrado);
     }
 
     @Override

@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -24,9 +25,6 @@ public class LibroServiceImpl implements LibroService {
 
     @Autowired
     EditorialRepository editorialRepository;
-
-    @Autowired
-    SubcategoriaRepository subcategoriaRepository;
 
     @Override
     public Libro crearLibro(LibroDTO libroDTO){
@@ -84,59 +82,40 @@ public class LibroServiceImpl implements LibroService {
 
     @Override
     public Libro actualizarLibro(Long id, LibroDTO libroActualizado){
-        Libro libro = libroRepository.findById(id)
+        Set<Categoria> categorias = new HashSet<>();
+        Editorial editorial = new Editorial();
+
+        Libro libroEncontrado = libroRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado con el ID: " + id));
 
-
-        Set<Categoria> categorias = libroActualizado.getCategoriasIds().stream()
+        if (libroActualizado.getCategoriasIds() != null){
+            categorias = libroActualizado.getCategoriasIds().stream()
                 .map(idCategoria -> categoriaRepository.findById(idCategoria)
                         .orElseThrow(() -> new ResourceNotFoundException ("Categoria no encontrada con el ID: " + idCategoria)))
                 .collect(Collectors.toSet());
+        }
 
-        Editorial editorial = editorialRepository.findById(libroActualizado.getEditorialId())
-                .orElseThrow(() -> new ResourceNotFoundException("Editorial no encontrada."));
+        if (libroActualizado.getEditorialId() != null){
+            editorial = editorialRepository.findById(libroActualizado.getEditorialId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Editorial no encontrada."));
+        }
 
-        if(libroActualizado.getTitulo() != null){
-            libro.setTitulo(libroActualizado.getTitulo());
-        }
-        if(libroActualizado.getAutoresIds() != null){
-            libro.setAutor(libroActualizado.getAutoresIds());
-        }
-        if(libroActualizado.getFechaPublicacion() != null){
-            libro.setFechaPublicacion(libroActualizado.getFechaPublicacion());
-        }
-        if(libroActualizado.getEditorialId() != null){
-            libro.setEditorial(editorial);
-        }
-        if(libroActualizado.getIsbn() != null){
-            libro.setIsbn(libroActualizado.getIsbn());
-        }
-        if(libroActualizado.getPrecio() != null){
-            libro.setPrecio(libroActualizado.getPrecio());
-        }
-        if(libroActualizado.getDescuento() != null){
-            libro.setDescuento(libroActualizado.getDescuento());
-        }
-        if(libroActualizado.getDescripcion() != null){
-            libro.setDescripcion(libroActualizado.getDescripcion());
-        }
-        if(libroActualizado.getResumen() != null){
-            libro.setResumen(libroActualizado.getResumen());
-        }
-        if(libroActualizado.getVistaPrevia() != null){
-            libro.setVistaPrevia(libroActualizado.getVistaPrevia());
-        }
-        if(libroActualizado.getImgPortada() != null){
-            libro.setImgPortada(libroActualizado.getImgPortada());
-        }
-        if(libroActualizado.getImgSubportada() != null){
-            libro.setImgSubportada(libroActualizado.getImgSubportada());
-        }
-        if(libroActualizado.getCategoriasIds() != null){
-            libro.setCategorias(categorias);
-        }
+        libroEncontrado.setTitulo(libroActualizado.getTitulo());
+        libroEncontrado.setAutor(libroActualizado.getAutoresIds());
+        libroEncontrado.setFechaPublicacion(libroActualizado.getFechaPublicacion());
+        libroEncontrado.setEditorial(editorial);
+        libroEncontrado.setIsbn(libroActualizado.getIsbn());
+        libroEncontrado.setPrecio(libroActualizado.getPrecio());
+        libroEncontrado.setDescuento(libroActualizado.getDescuento());
+        libroEncontrado.setDescripcion(libroActualizado.getDescripcion());
+        libroEncontrado.setResumen(libroActualizado.getResumen());
+        libroEncontrado.setVistaPrevia(libroActualizado.getVistaPrevia());
+        libroEncontrado.setVistaPrevia(libroActualizado.getVistaPrevia());
+        libroEncontrado.setImgPortada(libroActualizado.getImgPortada());
+        libroEncontrado.setImgSubportada(libroActualizado.getImgSubportada());
+        libroEncontrado.setCategorias(categorias);
 
         // Guardar los cambios
-        return libroRepository.save(libro);
+        return libroRepository.save(libroEncontrado);
     }
 }

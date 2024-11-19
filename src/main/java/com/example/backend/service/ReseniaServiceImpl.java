@@ -41,7 +41,7 @@ public class ReseniaServiceImpl implements ReseniaService {
                 .fechaPublicacion(LocalDate.now())
                 .build();
 
-        return reseniaRepository.save(resenia);
+        return  reseniaRepository.save(resenia);
     }
 
     @Override

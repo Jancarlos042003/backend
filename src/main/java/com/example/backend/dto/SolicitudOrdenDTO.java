@@ -3,12 +3,14 @@ package com.example.backend.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Builder
 public class SolicitudOrdenDTO {
     @NotNull(message = "El ID del usuario no puede ser nulo.")
     private Long idUsuario;
