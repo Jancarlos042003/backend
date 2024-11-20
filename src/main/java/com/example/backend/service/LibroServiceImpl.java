@@ -127,5 +127,5 @@ public class LibroServiceImpl implements LibroService {
         return libros.stream()
                 .map(libro -> new LibroBusquedaDTO(libro.getId(), libro.getTitulo(), libro.getIsbn(), libro.getAutor()))
                 .collect(Collectors.toList());
-    }   
+    }
 }

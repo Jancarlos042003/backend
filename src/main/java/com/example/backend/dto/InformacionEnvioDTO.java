@@ -2,11 +2,9 @@ package com.example.backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class InformacionEnvioDTO {
     @NotBlank(message = "Se necesita ingresar una dirección de envío.")
     @Size(max = 255, message = "La dirección no puede exceder los 255 caracteres.")
