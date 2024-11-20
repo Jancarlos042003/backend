@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.LibroBusquedaDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.service.LibroService;
 import jakarta.validation.Valid;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -25,6 +28,11 @@ public class LibroController {
     @GetMapping("/{id}")
     public ResponseEntity<?> mostrarLibro(@Min(1) @PathVariable Long id){
         return new ResponseEntity<>(libroService.mostrarLibro(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<LibroBusquedaDTO>> buscarLibrosPorCriterios(@RequestParam String termino){
+        return new ResponseEntity<>(libroService.buscarLibrosPorCriterios(termino), HttpStatus.OK);
     }
 
     @PostMapping

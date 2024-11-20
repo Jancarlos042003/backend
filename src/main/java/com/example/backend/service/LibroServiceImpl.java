@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.LibroBusquedaDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.*;
@@ -118,4 +119,13 @@ public class LibroServiceImpl implements LibroService {
         // Guardar los cambios
         return libroRepository.save(libroEncontrado);
     }
+
+    @Override
+    public List<LibroBusquedaDTO> buscarLibrosPorCriterios(String termino){
+        List<Libro> libros = libroRepository.buscarPorCriterios(termino);
+
+        return libros.stream()
+                .map(libro -> new LibroBusquedaDTO(libro.getId(), libro.getTitulo(), libro.getIsbn(), libro.getAutor()))
+                .collect(Collectors.toList());
+    }   
 }

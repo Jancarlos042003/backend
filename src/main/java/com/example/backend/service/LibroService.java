@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.LibroBusquedaDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.model.Libro;
 
@@ -15,4 +16,6 @@ public interface LibroService {
     void eliminarLibro(Long id);
 
     Libro actualizarLibro(Long id, LibroDTO libroActualizado);
+
+    List<LibroBusquedaDTO> buscarLibrosPorCriterios(String termino);
 }
