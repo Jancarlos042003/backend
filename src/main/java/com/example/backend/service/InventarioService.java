@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.InventarioDTO;
 import com.example.backend.model.Inventario;
 
 import java.util.List;
@@ -7,11 +8,11 @@ import java.util.List;
 public interface InventarioService {
     List<Inventario> mostrarInventarios();
 
-    Inventario mostrarInventario(Long id);
+    List<InventarioDTO> buscarInventarioPorCriterios(String termino);
 
-    Inventario crearInventario(Inventario inventario);
+    Inventario crearInventario(InventarioDTO inventarioDTO);
 
-    Inventario actualizarInventario(Long id, Inventario inventario);
+    Inventario actualizarInventario(Long idLibro, InventarioDTO inventarioDTO);
 
-    void eliminarInventario(Long id);
+    void eliminarInventario(Long idLibro);
 }

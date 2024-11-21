@@ -1,11 +1,16 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "inventario")
 public class Inventario {
@@ -17,8 +22,11 @@ public class Inventario {
     @JoinColumn(name = "libro_id")
     private Libro libro;
 
-    private Integer cantidad;
+    private Integer stock;
+
+    @Column(name = "fecha_creacion")
+    private LocalDate fechaCreacion;
 
     @Column(name = "fecha_actualizacion")
-    private LocalDate fechaActualizacion;
+    private LocalDateTime fechaActualizacion;
 }

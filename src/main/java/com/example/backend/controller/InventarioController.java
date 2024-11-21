@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.Inventario;
+import com.example.backend.dto.InventarioDTO;
 import com.example.backend.service.InventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,24 +18,24 @@ public class InventarioController {
         return new ResponseEntity<>(inventarioService.mostrarInventarios(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> mostrarInventario(@PathVariable Long id){
-        return new ResponseEntity<>(inventarioService.mostrarInventario(id), HttpStatus.OK);
+    @GetMapping("/{termino}")
+    public ResponseEntity<?> buscarInventarioPorCriterios(@PathVariable String termino){
+        return new ResponseEntity<>(inventarioService.buscarInventarioPorCriterios(termino), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> crearInventario(@RequestBody Inventario inventario){
+    public ResponseEntity<?> crearInventario(@RequestBody InventarioDTO inventario){
         return new ResponseEntity<>(inventarioService.crearInventario(inventario), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarInventario(@PathVariable Long id, @RequestBody Inventario inventario){
-        return new ResponseEntity<>(inventarioService.actualizarInventario(id, inventario), HttpStatus.NO_CONTENT);
+    @PutMapping("/{idLibro}")
+    public ResponseEntity<?> actualizarInventario(@PathVariable Long idLibro, @RequestBody InventarioDTO inventarioDTO){
+        return new ResponseEntity<>(inventarioService.actualizarInventario(idLibro, inventarioDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarInventario(@PathVariable Long id){
-        inventarioService.eliminarInventario(id);
+    @DeleteMapping("/{idLibro}")
+    public ResponseEntity<?> eliminarInventario(@PathVariable Long idLibro){
+        inventarioService.eliminarInventario(idLibro);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
