@@ -64,8 +64,8 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public void eliminarInventario(Long idLibro){
-        Optional<Inventario> inventario = inventarioRepository.findByLibroId(idLibro);
+    public void eliminarInventario(Long id){
+        Optional<Inventario> inventario = inventarioRepository.findById(id);
 
         if (inventario.isPresent()){
             inventarioRepository.deleteById(inventario.get().getId());

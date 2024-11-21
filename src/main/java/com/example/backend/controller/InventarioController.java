@@ -33,9 +33,9 @@ public class InventarioController {
         return new ResponseEntity<>(inventarioService.actualizarInventario(idLibro, inventarioDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{idLibro}")
-    public ResponseEntity<?> eliminarInventario(@PathVariable Long idLibro){
-        inventarioService.eliminarInventario(idLibro);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarInventario(@PathVariable Long id){
+        inventarioService.eliminarInventario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

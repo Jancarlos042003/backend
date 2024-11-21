@@ -14,5 +14,5 @@ public interface InventarioService {
 
     Inventario actualizarInventario(Long idLibro, InventarioDTO inventarioDTO);
 
-    void eliminarInventario(Long idLibro);
+    void eliminarInventario(Long id);
 }
