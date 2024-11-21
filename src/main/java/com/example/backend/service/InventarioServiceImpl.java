@@ -53,9 +53,9 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public Inventario actualizarInventario(Long idLibro, InventarioDTO inventarioDTO){
-        Inventario inventario = inventarioRepository.findByLibroId(idLibro)
-                .orElseThrow(() -> new ResourceNotFoundException("Error al encontrar el inventario del libro con el ID: " + idLibro));
+    public Inventario actualizarInventario(Long id, InventarioDTO inventarioDTO){
+        Inventario inventario = inventarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Error al encontrar el inventario del libro con el ID: " + id));
 
         inventario.setStock(inventarioDTO.getStock());
         inventario.setFechaActualizacion(LocalDateTime.now());

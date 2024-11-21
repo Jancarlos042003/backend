@@ -17,6 +17,4 @@ public interface InventarioRepository extends JpaRepository<Inventario, Long> {
             "LOWER(l.autor) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
             "LOWER(l.isbn) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Inventario> buscarPorCriterios(@Param("termino") String termino);
-
-    Optional<Inventario> findByLibroId(Long id);
 }

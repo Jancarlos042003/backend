@@ -12,7 +12,7 @@ public interface InventarioService {
 
     Inventario crearInventario(InventarioDTO inventarioDTO);
 
-    Inventario actualizarInventario(Long idLibro, InventarioDTO inventarioDTO);
+    Inventario actualizarInventario(Long id, InventarioDTO inventarioDTO);
 
     void eliminarInventario(Long id);
 }
