@@ -49,6 +49,8 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.POST, "/api/usuario/registrar").permitAll();
                     auth.requestMatchers("/error").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/usuario/**").hasRole("USER");
+                    auth.requestMatchers(HttpMethod.GET, "/api/usuario/me").hasRole("ADMIN");
+
 
                     // Endpoint público para ver libros
                     auth.requestMatchers(HttpMethod.GET, "/api/libro").permitAll();
