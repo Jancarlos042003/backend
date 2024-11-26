@@ -33,7 +33,7 @@ public class InventarioServiceImpl implements InventarioService {
     public List<InventarioDTO> buscarInventarioPorCriterios(String termino){
         List<Inventario> inventarios = inventarioRepository.buscarPorCriterios(termino);
         return inventarios.stream()
-                .map(inventario -> new InventarioDTO(inventario.getLibro().getId(), inventario.getStock()))
+                .map(inventario -> new InventarioDTO(inventario.getId(), inventario.getLibro().getId(), inventario.getStock()))
                 .collect(Collectors.toList());
     }
 
