@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InventarioDTO {
+    private Long id;
     private Long idLibro;
 
     @NotNull(message = "La calificación del libro es obligatoria.")
