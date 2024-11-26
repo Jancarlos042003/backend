@@ -66,6 +66,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.DELETE, "/api/autor/**").hasRole("ADMIN");
 
                     auth.requestMatchers(HttpMethod.GET, "/api/inventario/**").permitAll();
+                    auth.requestMatchers(HttpMethod.PUT, "/api/inventario/**").hasRole("USER");
                     auth.requestMatchers("/api/inventario/**").hasRole("ADMIN");
 
                     auth.requestMatchers(HttpMethod.GET, "/api/editorial").permitAll();
