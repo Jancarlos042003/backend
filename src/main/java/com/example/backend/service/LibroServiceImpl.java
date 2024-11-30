@@ -66,10 +66,9 @@ public class LibroServiceImpl implements LibroService {
 
     @Override
     public Libro mostrarLibro(Long id){
-        Libro libro = libroRepository.findById(id)
+        return libroRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Libro con ID: " + id + " no encontrado."));
 
-        return libro;
     }
 
     @Override

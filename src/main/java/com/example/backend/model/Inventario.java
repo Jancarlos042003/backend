@@ -29,4 +29,11 @@ public class Inventario {
 
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
+
+    private Integer entrada;
+    private Integer salida;
+    private boolean agotado;
+
+    @Column(name = "num_lote")
+    private String numLote;
 }

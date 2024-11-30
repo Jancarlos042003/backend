@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/inventario")
 public class InventarioController {
@@ -14,7 +16,7 @@ public class InventarioController {
     InventarioService inventarioService;
 
     @GetMapping
-    public ResponseEntity<?> mostrarInventarios(){
+    public ResponseEntity<List<InventarioDTO>> mostrarInventarios(){
         return new ResponseEntity<>(inventarioService.mostrarInventarios(), HttpStatus.OK);
     }
 

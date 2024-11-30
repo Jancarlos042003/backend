@@ -6,7 +6,7 @@ import com.example.backend.model.Inventario;
 import java.util.List;
 
 public interface InventarioService {
-    List<Inventario> mostrarInventarios();
+    List<InventarioDTO> mostrarInventarios();
 
     List<InventarioDTO> buscarInventarioPorCriterios(String termino);
 

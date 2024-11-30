@@ -17,6 +17,7 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
             "LOWER(l.isbn) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
             "LOWER(l.autor) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Libro> buscarPorCriterios(@Param("termino") String termino);
+
     Optional<List<Libro>> findByCategoriasId(Long id);
 
     @Query("SELECT new com.example.backend.dto.LibroCardDTO(l.id, l.titulo, l.autor, l.precio, l.descuento, l.descripcion, l.imgPortada) " +
