@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.InventarioDTO;
+import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.Inventario;
 import com.example.backend.model.Libro;
@@ -33,7 +34,25 @@ public class InventarioServiceImpl implements InventarioService {
         List<Inventario> inventarioList = inventarioRepository.findAll();
 
         return inventarioList.stream()
-                .map(inventario -> modelMapper.map(inventario, InventarioDTO.class))
+                .map(inventario -> InventarioDTO.builder()
+                        .id(inventario.getId())
+                        .stock(inventario.getStock())
+                        .entrada(inventario.getEntrada())
+                        .salida(inventario.getSalida())
+                        .agotado(inventario.isAgotado())
+                        .numLote(inventario.getNumLote())
+                        .fechaCreacion(inventario.getFechaCreacion())
+                        .fechaActualizacion(inventario.getFechaActualizacion())
+                        .libroCardDTO(LibroCardDTO.builder()
+                                .id(inventario.getLibro().getId())
+                                .titulo(inventario.getLibro().getTitulo())
+                                .autor(inventario.getLibro().getAutor())
+                                .precio(inventario.getLibro().getPrecio())
+                                .descuento(inventario.getLibro().getDescuento())
+                                .descripcion(inventario.getLibro().getDescripcion())
+                                .imgPortada(inventario.getLibro().getImgPortada())
+                                .build())
+                        .build())
                 .collect(Collectors.toList());
     }
 
@@ -47,7 +66,7 @@ public class InventarioServiceImpl implements InventarioService {
 
     @Override
     public Inventario crearInventario(InventarioDTO inventarioDTO){
-        Libro libro = libroRepository.findById(inventarioDTO.getIdLibro())
+        Libro libro = libroRepository.findById(inventarioDTO.getLibroCardDTO().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado"));
 
         Inventario inventario = Inventario.builder()
