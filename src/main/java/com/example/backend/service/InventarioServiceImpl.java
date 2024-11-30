@@ -47,6 +47,7 @@ public class InventarioServiceImpl implements InventarioService {
                                 .id(inventario.getLibro().getId())
                                 .titulo(inventario.getLibro().getTitulo())
                                 .autor(inventario.getLibro().getAutor())
+                                .isbn(inventario.getLibro().getIsbn())
                                 .precio(inventario.getLibro().getPrecio())
                                 .descuento(inventario.getLibro().getDescuento())
                                 .descripcion(inventario.getLibro().getDescripcion())
