@@ -6,13 +6,11 @@ import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -27,10 +25,13 @@ public class LibroServiceImpl implements LibroService {
     @Autowired
     EditorialRepository editorialRepository;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
     public Libro crearLibro(LibroDTO libroDTO){
 
-        Set<Categoria> categorias = libroDTO.getCategoriasIds().stream()
+        Set<Categoria> categorias = libroDTO.getCategorias().stream()
                 .map(id -> categoriaRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException ("Categoría no encontrada con el ID: " + id)))
                 .collect(Collectors.toSet());
@@ -40,7 +41,7 @@ public class LibroServiceImpl implements LibroService {
 
         Libro libro = Libro.builder()
                 .titulo(libroDTO.getTitulo())
-                .autor(libroDTO.getAutoresIds())
+                .autor(libroDTO.getAutor())
                 .fechaPublicacion(libroDTO.getFechaPublicacion())
                 .editorial(editorial)
                 .isbn(libroDTO.getIsbn())
@@ -89,8 +90,8 @@ public class LibroServiceImpl implements LibroService {
         Libro libroEncontrado = libroRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado con el ID: " + id));
 
-        if (libroActualizado.getCategoriasIds() != null){
-            categorias = libroActualizado.getCategoriasIds().stream()
+        if (libroActualizado.getCategorias() != null){
+            categorias = libroActualizado.getCategorias().stream()
                 .map(idCategoria -> categoriaRepository.findById(idCategoria)
                         .orElseThrow(() -> new ResourceNotFoundException ("Categoria no encontrada con el ID: " + idCategoria)))
                 .collect(Collectors.toSet());
@@ -102,7 +103,7 @@ public class LibroServiceImpl implements LibroService {
         }
 
         libroEncontrado.setTitulo(libroActualizado.getTitulo());
-        libroEncontrado.setAutor(libroActualizado.getAutoresIds());
+        libroEncontrado.setAutor(libroActualizado.getAutor());
         libroEncontrado.setFechaPublicacion(libroActualizado.getFechaPublicacion());
         libroEncontrado.setEditorial(editorial);
         libroEncontrado.setIsbn(libroActualizado.getIsbn());
@@ -126,6 +127,15 @@ public class LibroServiceImpl implements LibroService {
 
         return libros.stream()
                 .map(libro -> new LibroBusquedaDTO(libro.getId(), libro.getTitulo(), libro.getIsbn(), libro.getAutor()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LibroDTO> mostrarLibrosPorCategoria(Long id){
+        List<Libro> libroList = libroRepository.findByCategoriasId(id).orElse(Collections.emptyList());
+
+        return libroList.stream()
+                .map(libro -> modelMapper.map(libro, LibroDTO.class))
                 .collect(Collectors.toList());
     }
 }

@@ -49,7 +49,7 @@ class LibroServiceImplTest {
         // ARRANGE
         LibroDTO libroDTO = new LibroDTO();
         libroDTO.setTitulo("Título prueba");
-        libroDTO.setAutoresIds("Autor prueba");
+        libroDTO.setAutor("Autor prueba");
         libroDTO.setFechaPublicacion(LocalDate.of(1976, 5, 30));
         libroDTO.setEditorialId(1L);
         libroDTO.setIsbn("987654321");
@@ -60,7 +60,7 @@ class LibroServiceImplTest {
         libroDTO.setVistaPrevia("Vista previa del libro");
         libroDTO.setImgPortada("URL imagen portada");
         libroDTO.setImgSubportada("URL imagen subportada");
-        libroDTO.setCategoriasIds(Set.of(1L, 2L));
+        libroDTO.setCategorias(Set.of(1L, 2L));
 
         Libro libroNuevo = DataProvider.mostrarLibroMocK();
         Categoria categoria1 = libroNuevo.getCategorias().stream()
@@ -95,7 +95,7 @@ class LibroServiceImplTest {
         // ARRANGE
         Long id = 7L;
         LibroDTO libroDTO = new LibroDTO();
-        libroDTO.setCategoriasIds(Set.of(id));
+        libroDTO.setCategorias(Set.of(id));
 
         when(categoriaRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -115,7 +115,7 @@ class LibroServiceImplTest {
         // ARRANGE
         Long idEditorial = 4L;
         LibroDTO libroDTO = new LibroDTO();
-        libroDTO.setCategoriasIds(Set.of(1L));
+        libroDTO.setCategorias(Set.of(1L));
         libroDTO.setEditorialId(idEditorial);
 
         when(categoriaRepository.findById(anyLong())).thenReturn(Optional.of(DataProvider.mostrarCategoriaMocK()));
@@ -237,7 +237,7 @@ class LibroServiceImplTest {
 
         LibroDTO libroDTO = new LibroDTO();
         libroDTO.setTitulo("Titulo actualizado");
-        libroDTO.setAutoresIds("Autor actualizado");
+        libroDTO.setAutor("Autor actualizado");
         libroDTO.setFechaPublicacion(LocalDate.of(2010, 10, 10));
         libroDTO.setEditorialId(2L);
         libroDTO.setIsbn("987654321");
@@ -248,7 +248,7 @@ class LibroServiceImplTest {
         libroDTO.setVistaPrevia("Preview Actualizada");
         libroDTO.setImgPortada("Portada Actualizada");
         libroDTO.setImgSubportada("Subportada Actualizada");
-        libroDTO.setCategoriasIds(Set.of(3L, 4L));
+        libroDTO.setCategorias(Set.of(3L, 4L));
 
         // Se crean las 2 categorias nuevas
         Categoria categoria1 = new Categoria(3L, "Categoria 3");
@@ -336,7 +336,7 @@ class LibroServiceImplTest {
         Long idLibro = 1L;
         Long idCategoria  = 6L;
         LibroDTO libroDTO = new LibroDTO();
-        libroDTO.setCategoriasIds(Set.of(idCategoria));
+        libroDTO.setCategorias(Set.of(idCategoria));
 
         when(libroRepository.findById(anyLong())).thenReturn(Optional.of(DataProvider.mostrarLibroMocK()));
         when(categoriaRepository.findById(idCategoria)).thenReturn(Optional.empty());

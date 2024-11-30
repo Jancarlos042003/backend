@@ -35,6 +35,11 @@ public class LibroController {
         return new ResponseEntity<>(libroService.buscarLibrosPorCriterios(termino), HttpStatus.OK);
     }
 
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<List<LibroDTO>> mostrarLibrosPorCategoria(@PathVariable Long id){
+        return new ResponseEntity<>(libroService.mostrarLibrosPorCategoria(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<?> crearLibro(@Valid @RequestBody LibroDTO libroDTO){
         return new ResponseEntity<>(libroService.crearLibro(libroDTO), HttpStatus.CREATED);

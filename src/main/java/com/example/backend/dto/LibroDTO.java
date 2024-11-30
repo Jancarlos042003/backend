@@ -10,17 +10,20 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class    LibroDTO {
+public class LibroDTO {
+    private Long id;
+
     @NotEmpty(message = "El título es obligatorio.")
     private String titulo;
 
     @NotNull(message = "El autor es obligatorio.")
-    private String autoresIds;
+    private String autor;
 
     @NotNull(message = "La fecha de publicación es obligatoria.")
     @Past(message = "La fecha de publicación debe ser una fecha en el pasado.")
@@ -54,9 +57,5 @@ public class    LibroDTO {
 
     @NotNull(message = "Las categorías son obligatorias.")
     @NotEmpty(message = "Debe haber al menos una categoría.")
-    private Set<Long> categoriasIds;
-
-    /*@NotNull(message = "Las subcategorías son obligatorias.")
-    @NotEmpty(message = "Debe haber al menos una subcategoría.")
-    private Set<Long> subcategoriasIds;*/
+    private Set<Long> categorias = new HashSet<>();
 }

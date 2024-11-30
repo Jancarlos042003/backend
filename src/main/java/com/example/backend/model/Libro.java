@@ -2,16 +2,15 @@ package com.example.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "libro")
 @Builder
@@ -23,13 +22,6 @@ public class Libro {
     private Long id;
 
     private String titulo;
-
-    /*@ManyToMany
-    @JoinTable(
-            name = "libro_autor",
-            joinColumns = @JoinColumn(name = "libro_id"),
-            inverseJoinColumns = @JoinColumn(name = "autor_id")
-    )*/
     private String autor;
 
     @Column(name = "fecha_publicacion")
@@ -69,13 +61,5 @@ public class Libro {
             joinColumns = @JoinColumn(name = "libro_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
-    private Set<Categoria> categorias;
-
-    /*@ManyToMany
-    @JoinTable(
-            name = "libro_subcategoria",
-            joinColumns = @JoinColumn(name = "libro_id"),
-            inverseJoinColumns = @JoinColumn(name = "subcategoria_id")
-    )
-    private Set<Subcategoria> subcategorias;*/
+    private Set<Categoria> categorias = new HashSet<>();
 }

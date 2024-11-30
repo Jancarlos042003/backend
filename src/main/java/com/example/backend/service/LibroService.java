@@ -18,4 +18,6 @@ public interface LibroService {
     Libro actualizarLibro(Long id, LibroDTO libroActualizado);
 
     List<LibroBusquedaDTO> buscarLibrosPorCriterios(String termino);
+
+    List<LibroDTO> mostrarLibrosPorCategoria(Long id);
 }

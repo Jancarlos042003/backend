@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
@@ -15,4 +16,5 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
             "LOWER(l.isbn) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
             "LOWER(l.autor) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Libro> buscarPorCriterios(@Param("termino") String termino);
+    Optional<List<Libro>> findByCategoriasId(Long id);
 }
