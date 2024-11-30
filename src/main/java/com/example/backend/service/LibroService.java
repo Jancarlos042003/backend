@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.LibroBusquedaDTO;
+import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.model.Libro;
 
@@ -20,4 +21,6 @@ public interface LibroService {
     List<LibroBusquedaDTO> buscarLibrosPorCriterios(String termino);
 
     List<LibroDTO> mostrarLibrosPorCategoria(Long id);
+
+    List<LibroCardDTO> obtenerLibrosPorCategoria(Long categoriaId);
 }

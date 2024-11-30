@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.LibroBusquedaDTO;
+import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.service.LibroService;
 import jakarta.validation.Valid;
@@ -36,8 +37,8 @@ public class LibroController {
     }
 
     @GetMapping("/categoria/{id}")
-    public ResponseEntity<List<LibroDTO>> mostrarLibrosPorCategoria(@PathVariable Long id){
-        return new ResponseEntity<>(libroService.mostrarLibrosPorCategoria(id), HttpStatus.OK);
+    public ResponseEntity<List<LibroCardDTO>> mostrarLibrosPorCategoria(@PathVariable Long id){
+        return new ResponseEntity<>(libroService.obtenerLibrosPorCategoria(id), HttpStatus.OK);
     }
 
     @PostMapping

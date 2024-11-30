@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.LibroBusquedaDTO;
+import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.*;
@@ -138,4 +139,10 @@ public class LibroServiceImpl implements LibroService {
                 .map(libro -> modelMapper.map(libro, LibroDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<LibroCardDTO> obtenerLibrosPorCategoria(Long categoriaId) {
+        return libroRepository.findLibroCardsByCategoriaId(categoriaId);
+    }
+
 }
