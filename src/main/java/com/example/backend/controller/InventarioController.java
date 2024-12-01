@@ -26,7 +26,7 @@ public class InventarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> crearInventario(@RequestBody InventarioDTO inventario){
+    public ResponseEntity<InventarioDTO> crearInventario(@RequestBody InventarioDTO inventario){
         return new ResponseEntity<>(inventarioService.crearInventario(inventario), HttpStatus.CREATED);
     }
 
