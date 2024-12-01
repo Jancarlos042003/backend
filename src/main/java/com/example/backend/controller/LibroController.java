@@ -22,7 +22,7 @@ public class LibroController {
     LibroService libroService;
 
     @GetMapping
-    public  ResponseEntity<?> mostrarLibros(){
+    public  ResponseEntity<List<LibroCardDTO>> mostrarLibros(){
         return new ResponseEntity<>(libroService.mostrarLibros(), HttpStatus.OK);
     }
 

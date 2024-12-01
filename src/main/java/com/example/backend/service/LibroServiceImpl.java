@@ -60,8 +60,20 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public List<Libro> mostrarLibros(){
-        return libroRepository.findAll();
+    public List<LibroCardDTO> mostrarLibros(){
+        List<Libro> libros = libroRepository.findAll();
+        return libros.stream()
+                .map(libro -> LibroCardDTO.builder()
+                        .id(libro.getId())
+                        .titulo(libro.getTitulo())
+                        .autor(libro.getAutor())
+                        .isbn(libro.getIsbn())
+                        .precio(libro.getPrecio())
+                        .descuento(libro.getDescuento())
+                        .descripcion(libro.getDescripcion())
+                        .imgPortada(libro.getImgPortada())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override

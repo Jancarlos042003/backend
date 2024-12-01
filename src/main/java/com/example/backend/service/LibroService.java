@@ -10,7 +10,7 @@ import java.util.List;
 public interface LibroService {
     Libro crearLibro(LibroDTO libroDTO);
 
-    List<Libro> mostrarLibros();
+    List<LibroCardDTO> mostrarLibros();
 
     Libro mostrarLibro(Long id);
 
