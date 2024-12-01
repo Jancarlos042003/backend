@@ -106,7 +106,7 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public Inventario actualizarInventario(Long id, InventarioDTO inventarioDTO){
+    public InventarioDTO actualizarInventario(Long id, InventarioDTO inventarioDTO){
         Inventario inventario = inventarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Error al encontrar el inventario del libro con el ID: " + id));
 
@@ -116,7 +116,28 @@ public class InventarioServiceImpl implements InventarioService {
         inventario.setStock(inventarioDTO.getStock());
         inventario.setFechaActualizacion(LocalDateTime.now());
 
-        return inventarioRepository.save(inventario);
+        inventarioRepository.save(inventario);
+
+        return InventarioDTO.builder()
+                .id(inventario.getId())
+                .stock(inventario.getStock())
+                .entrada(inventario.getEntrada())
+                .salida(inventario.getSalida())
+                .agotado(inventario.isAgotado())
+                .numLote(inventario.getNumLote())
+                .fechaCreacion(inventario.getFechaCreacion())
+                .fechaActualizacion(inventario.getFechaActualizacion())
+                .libroCardDTO(LibroCardDTO.builder()
+                        .id(inventario.getLibro().getId())
+                        .titulo(inventario.getLibro().getTitulo())
+                        .autor(inventario.getLibro().getAutor())
+                        .isbn(inventario.getLibro().getIsbn())
+                        .precio(inventario.getLibro().getPrecio())
+                        .descuento(inventario.getLibro().getDescuento())
+                        .descripcion(inventario.getLibro().getDescripcion())
+                        .imgPortada(inventario.getLibro().getImgPortada())
+                        .build())
+                .build();
     }
 
     @Override
