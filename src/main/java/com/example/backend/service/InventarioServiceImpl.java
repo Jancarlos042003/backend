@@ -112,7 +112,7 @@ public class InventarioServiceImpl implements InventarioService {
 
         Integer nuevaEntrada = inventarioDTO.getEntrada();
         Integer actualizarSalida = inventario.getSalida() + inventarioDTO.getSalida();
-        Integer actualizarStock = nuevaEntrada - inventarioDTO.getSalida();
+        Integer actualizarStock = nuevaEntrada - actualizarSalida;
 
         inventario.setStock(actualizarStock);
         inventario.setSalida(actualizarSalida);
