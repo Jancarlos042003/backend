@@ -110,22 +110,24 @@ public class InventarioServiceImpl implements InventarioService {
         Inventario inventario = inventarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Error al encontrar el inventario del libro con el ID: " + id));
 
-        int actualizarStock = 0;
         Integer nuevaEntrada = inventarioDTO.getEntrada();
-        Integer actualizarSalida = inventario.getSalida() + inventarioDTO.getSalida();
+        Integer nuevaSalida = inventarioDTO.getSalida();
+        Integer totalSalidas = inventario.getSalida() + nuevaSalida;
+        int actualizarStock = nuevaEntrada - totalSalidas;
 
-        if (actualizarSalida <= inventario.getStock()){
-            actualizarStock = nuevaEntrada - actualizarSalida;
-            if (actualizarStock == 0){
-                inventario.setAgotado(true);
-            }
-        }
+        /* Validar que no se retire más stock del disponible
+        if (nuevaSalida > inventario.getStock()) {
+            throw new IllegalArgumentException("No hay suficiente stock para procesar la salida.");
+        }*/
 
         inventario.setStock(actualizarStock);
-        inventario.setSalida(actualizarSalida);
+        inventario.setSalida(totalSalidas);
         inventario.setEntrada(nuevaEntrada);
         inventario.setFechaActualizacion(LocalDateTime.now());
         inventario.setNumLote(inventarioDTO.getNumLote());
+
+        // Establecer agotado si el stock llega a 0
+        inventario.setAgotado(actualizarStock <= 0);
 
         inventarioRepository.save(inventario);
 
