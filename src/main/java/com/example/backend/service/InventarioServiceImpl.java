@@ -124,7 +124,7 @@ public class InventarioServiceImpl implements InventarioService {
         inventario.setSalida(totalSalidas);
         inventario.setEntrada(nuevaEntrada);
         inventario.setFechaActualizacion(LocalDateTime.now());
-        inventario.setNumLote(inventarioDTO.getNumLote());
+        inventario.setNumLote(inventarioDTO.getNumLote()!= null ? inventarioDTO.getNumLote() : inventario.getNumLote());
 
         // Establecer agotado si el stock llega a 0
         inventario.setAgotado(actualizarStock <= 0);
