@@ -110,9 +110,16 @@ public class InventarioServiceImpl implements InventarioService {
         Inventario inventario = inventarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Error al encontrar el inventario del libro con el ID: " + id));
 
+        int actualizarStock = 0;
         Integer nuevaEntrada = inventarioDTO.getEntrada();
         Integer actualizarSalida = inventario.getSalida() + inventarioDTO.getSalida();
-        Integer actualizarStock = nuevaEntrada - actualizarSalida;
+
+        if (actualizarSalida <= inventario.getStock()){
+            actualizarStock = nuevaEntrada - actualizarSalida;
+            if (actualizarStock == 0){
+                inventario.setAgotado(true);
+            }
+        }
 
         inventario.setStock(actualizarStock);
         inventario.setSalida(actualizarSalida);
