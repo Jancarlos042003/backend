@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.DataProvider;
+import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.Categoria;
@@ -138,7 +139,7 @@ class LibroServiceImplTest {
         when(libroRepository.findAll()).thenReturn(DataProvider.mostrarLibrosMock());
 
         // ACT
-        List<Libro> resultados = libroService.mostrarLibros();
+        List<LibroCardDTO> resultados = libroService.mostrarLibros();
 
         // ASSERT
         assertAll(
