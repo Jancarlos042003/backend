@@ -10,7 +10,7 @@ public interface InventarioService {
 
     List<InventarioDTO> buscarInventarioPorCriterios(String termino);
 
-    Inventario crearInventario(InventarioDTO inventarioDTO);
+    InventarioDTO crearInventario(InventarioDTO inventarioDTO);
 
     Inventario actualizarInventario(Long id, InventarioDTO inventarioDTO);
 

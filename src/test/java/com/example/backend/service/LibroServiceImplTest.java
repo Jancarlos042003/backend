@@ -152,7 +152,7 @@ class LibroServiceImplTest {
 
     @Test
     @DisplayName("Retorna un libro buscado por su ID")
-    void testMostrarLibro(){
+        void testMostrarLibro(){
         // ARRANGE
         Long id = 1L;
         when(libroRepository.findById(anyLong())).thenReturn(Optional.of(DataProvider.mostrarLibroMocK()));

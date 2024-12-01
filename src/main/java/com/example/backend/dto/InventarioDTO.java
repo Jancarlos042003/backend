@@ -25,7 +25,7 @@ public class InventarioDTO {
 
     private Integer entrada;
     private Integer salida;
-    private boolean agotado = false;
+    private boolean agotado;
     private String numLote;
     private LocalDate fechaCreacion;
     private LocalDateTime fechaActualizacion;

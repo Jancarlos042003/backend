@@ -66,7 +66,7 @@ public class InventarioServiceImpl implements InventarioService {
     }
 
     @Override
-    public Inventario crearInventario(InventarioDTO inventarioDTO){
+    public InventarioDTO crearInventario(InventarioDTO inventarioDTO){
         Libro libro = libroRepository.findById(inventarioDTO.getLibroCardDTO().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado"));
 
@@ -77,11 +77,32 @@ public class InventarioServiceImpl implements InventarioService {
                 .fechaActualizacion(LocalDateTime.now())
                 .entrada(inventarioDTO.getEntrada())
                 .salida(0)
-                .agotado(inventarioDTO.isAgotado())
+                .agotado(false)
                 .numLote(inventarioDTO.getNumLote())
                 .build();
 
-        return inventarioRepository.save(inventario);
+        inventarioRepository.save(inventario);
+
+        return InventarioDTO.builder()
+                .id(inventario.getId())
+                .stock(inventario.getStock())
+                .entrada(inventario.getEntrada())
+                .salida(inventario.getSalida())
+                .agotado(inventario.isAgotado())
+                .numLote(inventario.getNumLote())
+                .fechaCreacion(inventario.getFechaCreacion())
+                .fechaActualizacion(inventario.getFechaActualizacion())
+                .libroCardDTO(LibroCardDTO.builder()
+                        .id(inventario.getLibro().getId())
+                        .titulo(inventario.getLibro().getTitulo())
+                        .autor(inventario.getLibro().getAutor())
+                        .isbn(inventario.getLibro().getIsbn())
+                        .precio(inventario.getLibro().getPrecio())
+                        .descuento(inventario.getLibro().getDescuento())
+                        .descripcion(inventario.getLibro().getDescripcion())
+                        .imgPortada(inventario.getLibro().getImgPortada())
+                        .build())
+                .build();
     }
 
     @Override
