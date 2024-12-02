@@ -32,7 +32,7 @@ public class LibroController {
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<LibroBusquedaDTO>> buscarLibrosPorCriterios(@RequestParam String termino){
+    public ResponseEntity<List<LibroCardDTO>> buscarLibrosPorCriterios(@RequestParam String termino){
         return new ResponseEntity<>(libroService.buscarLibrosPorCriterios(termino), HttpStatus.OK);
     }
 

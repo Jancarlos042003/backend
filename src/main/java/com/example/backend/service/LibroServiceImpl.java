@@ -134,11 +134,20 @@ public class LibroServiceImpl implements LibroService {
     }
 
     @Override
-    public List<LibroBusquedaDTO> buscarLibrosPorCriterios(String termino){
+    public List<LibroCardDTO> buscarLibrosPorCriterios(String termino){
         List<Libro> libros = libroRepository.buscarPorCriterios(termino);
 
         return libros.stream()
-                .map(libro -> new LibroBusquedaDTO(libro.getId(), libro.getTitulo(), libro.getIsbn(), libro.getAutor()))
+                .map(libro -> LibroCardDTO.builder()
+                        .id(libro.getId())
+                        .titulo(libro.getTitulo())
+                        .autor(libro.getAutor())
+                        .isbn(libro.getIsbn())
+                        .precio(libro.getPrecio())
+                        .descuento(libro.getDescuento())
+                        .imgPortada(libro.getImgPortada())
+                        .build()
+                )
                 .collect(Collectors.toList());
     }
 
