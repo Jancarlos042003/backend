@@ -148,6 +148,7 @@ public class LibroServiceImpl implements LibroService {
                         .descuento(libro.getDescuento())
                         .descripcion(libro.getDescripcion())
                         .imgPortada(libro.getImgPortada())
+                        .categorias(libro.getCategorias())
                         .build()
                 )
                 .collect(Collectors.toList());
