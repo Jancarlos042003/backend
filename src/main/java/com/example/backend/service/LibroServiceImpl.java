@@ -72,6 +72,7 @@ public class LibroServiceImpl implements LibroService {
                         .descuento(libro.getDescuento())
                         .descripcion(libro.getDescripcion())
                         .imgPortada(libro.getImgPortada())
+                        .categorias(libro.getCategorias())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -145,6 +146,7 @@ public class LibroServiceImpl implements LibroService {
                         .isbn(libro.getIsbn())
                         .precio(libro.getPrecio())
                         .descuento(libro.getDescuento())
+                        .descripcion(libro.getDescripcion())
                         .imgPortada(libro.getImgPortada())
                         .build()
                 )
