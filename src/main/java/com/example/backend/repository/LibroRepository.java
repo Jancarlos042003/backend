@@ -20,8 +20,9 @@ public interface LibroRepository extends JpaRepository<Libro, Long> {
 
     Optional<List<Libro>> findByCategoriasId(Long id);
 
-    @Query("SELECT new com.example.backend.dto.LibroCardDTO(l.id, l.titulo, l.autor, l.isbn, l.precio, l.descuento, l.descripcion, l.imgPortada, l.categorias) " +
+    @Query("SELECT new com.example.backend.dto.LibroCardDTO(l.id, l.titulo, l.autor, l.isbn, e.nombre, l.precio, l.descuento, l.descripcion, l.imgPortada) " +
             "FROM Libro l " +
+            "JOIN l.editorial e " +
             "JOIN l.categorias c " +
             "WHERE c.id = :categoriaId")
     List<LibroCardDTO> findLibroCardsByCategoriaId(@Param("categoriaId") Long categoriaId);

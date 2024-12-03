@@ -68,11 +68,11 @@ public class LibroServiceImpl implements LibroService {
                         .titulo(libro.getTitulo())
                         .autor(libro.getAutor())
                         .isbn(libro.getIsbn())
+                        .editorial(libro.getEditorial().getNombre())
                         .precio(libro.getPrecio())
                         .descuento(libro.getDescuento())
                         .descripcion(libro.getDescripcion())
                         .imgPortada(libro.getImgPortada())
-                        .categorias(libro.getCategorias())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -144,11 +144,11 @@ public class LibroServiceImpl implements LibroService {
                         .titulo(libro.getTitulo())
                         .autor(libro.getAutor())
                         .isbn(libro.getIsbn())
+                        .editorial(libro.getEditorial().getNombre())
                         .precio(libro.getPrecio())
                         .descuento(libro.getDescuento())
                         .descripcion(libro.getDescripcion())
                         .imgPortada(libro.getImgPortada())
-                        .categorias(libro.getCategorias())
                         .build()
                 )
                 .collect(Collectors.toList());

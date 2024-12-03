@@ -18,9 +18,9 @@ public class LibroCardDTO {
     private String titulo;
     private String autor;
     private String isbn;
+    private String editorial;
     private BigDecimal precio;
     private BigDecimal descuento;
     private String descripcion;
     private String imgPortada;
-    private Set<Categoria> categorias;
 }
