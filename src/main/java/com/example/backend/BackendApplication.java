@@ -16,6 +16,8 @@ public class BackendApplication {
 		System.setProperty("MYSQLPASSWORD", dotenv.get("MYSQLPASSWORD"));
 		System.setProperty("CLIENT_ID", dotenv.get("CLIENT_ID"));
 		System.setProperty("SECRET", dotenv.get("SECRET"));
+		System.setProperty("EMAIL", dotenv.get("EMAIL"));
+		System.setProperty("PASSWORD", dotenv.get("PASSWORD"));
 
 		SpringApplication.run(BackendApplication.class, args);
 	}
