@@ -15,6 +15,7 @@ import com.example.backend.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
+import java.util.concurrent.Executor;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -48,6 +50,10 @@ public class PayPalServiceImpl implements  PayPalService {
     private final OrdenRepository ordenRepository;
     private final LibroRepository libroRepository;
     private final DetalleOrdenRepository detalleOrdenRepository;
+    private final EmailService emailService;
+
+    @Autowired
+    private Executor taskExecutor; // Permitiría ejecutar el envío de correos en un hilo separado (asincrono)
 
     @Override
     @Transactional // Aseguramos de que toda la operación de guardar la orden y los detalles esté dentro de una transacción
@@ -185,10 +191,14 @@ public class PayPalServiceImpl implements  PayPalService {
             Orden orden = ordenRepository.findByIdOrdenPaypal(ordenId)
                     .orElseThrow(() -> new ResourceNotFoundException("La orden no encontrada con el ID: " + ordenId));
 
+            System.out.println(orden);
+
             orden.setEstado(nuevoEstado); // Actualizamos el estado
             orden.setFechaPago(LocalDateTime.now());
             ordenRepository.save(orden); // Guardamos en la BD
 
+            // Se utiliza el Executor
+            taskExecutor.execute(() -> emailService.enviarBoletaCompra(orden, orden.getUsuario().getUsername()));
 
             return RespuestaPagoDTO.builder()
                     .idOrden(ordenId) // Se asigna el ID de la orden
@@ -221,7 +231,10 @@ public class PayPalServiceImpl implements  PayPalService {
                 JsonNode.class
         );
 
-        // Extrae y retorna el "access_token" del cuerpo de la respuesta
-        return respuesta.getBody().get("access_token").asText();
+        // Log para verificar la respuesta
+        String token = respuesta.getBody().get("access_token").asText(); // Extrae y retorna el "access_token" del cuerpo de la respuesta
+        System.out.println("Token de acceso: " + token);
+
+        return token;
     }
 }
