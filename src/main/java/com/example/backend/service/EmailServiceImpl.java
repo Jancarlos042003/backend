@@ -14,8 +14,8 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +107,9 @@ public class EmailServiceImpl implements EmailService {
 
             // Añadir título y detalles de la orden
             document.add(new Paragraph("Boleta de Compra")
-                    .setFontSize(18)
-                    .setBold());
+                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)) // Fuente negrita
+                    .setFontSize(18));
+
             document.add(new Paragraph("Número de Orden: " + orden.getIdOrdenPaypal()));
             document.add(new Paragraph("Fecha: " + orden.getFechaPago().format(formatter)));
 
@@ -120,25 +121,25 @@ public class EmailServiceImpl implements EmailService {
             table.setWidth(UnitValue.createPercentValue(100));
 
             // Celdas de encabezado con estilos
-            table.addHeaderCell(new Cell().add(new Paragraph("LIBRO").setBold())
-                    .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+            table.addHeaderCell(new Cell().add(new Paragraph("LIBRO")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))))
+                            .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                            .setTextAlignment(TextAlignment.CENTER);
 
-            table.addHeaderCell(new Cell().add(new Paragraph("CANTIDAD").setBold())
-                    .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+            table.addHeaderCell(new Cell().add(new Paragraph("CANTIDAD")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))))
+                            .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                            .setTextAlignment(TextAlignment.CENTER);
 
-            table.addHeaderCell(new Cell().add(new Paragraph("PRECIO").setBold())
-                    .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+            table.addHeaderCell(new Cell().add(new Paragraph("PRECIO")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))))
+                            .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                            .setTextAlignment(TextAlignment.CENTER);
 
-            table.addHeaderCell(new Cell().add(new Paragraph("DESCUENTO").setBold())
-                    .setBackgroundColor(ColorConstants.LIGHT_GRAY)
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+            table.addHeaderCell(new Cell().add(new Paragraph("DESCUENTO")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))))
+                            .setBackgroundColor(ColorConstants.LIGHT_GRAY)
+                            .setTextAlignment(TextAlignment.CENTER);
 
             // Llenar la tabla con datos
             for (DetalleOrden detalle : detalleOrdenList) {
