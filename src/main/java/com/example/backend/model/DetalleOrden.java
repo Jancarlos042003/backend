@@ -1,13 +1,16 @@
 package com.example.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "detalles_orden")
 public class DetalleOrden {
     @Id
