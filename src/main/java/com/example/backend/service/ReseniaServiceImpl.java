@@ -8,22 +8,18 @@ import com.example.backend.model.Usuario;
 import com.example.backend.repository.LibroRepository;
 import com.example.backend.repository.ReseniaRepository;
 import com.example.backend.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class ReseniaServiceImpl implements ReseniaService {
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private LibroRepository libroRepository;
-
-    @Autowired
-    private ReseniaRepository  reseniaRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final LibroRepository libroRepository;
+    private final ReseniaRepository  reseniaRepository;
 
     @Override
     public Resenia crearResenia(ReseniaDTO reseniaDTO, Long idLibro, Long idUsuario){
@@ -61,7 +57,7 @@ public class ReseniaServiceImpl implements ReseniaService {
         Resenia resenia = reseniaRepository.findById(idResenia)
                 .orElseThrow(() -> new ResourceNotFoundException("Resenia no encontrada con el ID: " + idResenia));
 
-        reseniaRepository.deleteById(idResenia);
+        reseniaRepository.deleteById(resenia.getId());
     }
 
     @Override
@@ -69,6 +65,6 @@ public class ReseniaServiceImpl implements ReseniaService {
         Libro libro = libroRepository.findById(idLibro)
                 .orElseThrow(() -> new ResourceNotFoundException("Libro no encontrado con el ID: " + idLibro));
 
-        return reseniaRepository.findAllByLibroId(idLibro);
+        return reseniaRepository.findAllByLibroId(libro.getId());
     }
 }

@@ -4,7 +4,6 @@ import com.example.backend.dto.EditorialDTO;
 import com.example.backend.model.Editorial;
 import com.example.backend.repository.EditorialRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.Optional;
 
 @Service
 public class EditorialServiceImpl implements EditorialService {
-    @Autowired
-    EditorialRepository editorialRepository;
+    private final EditorialRepository editorialRepository;
+
+    public EditorialServiceImpl(EditorialRepository editorialRepository) {
+        this.editorialRepository = editorialRepository;
+    }
 
     @Override
     public Editorial crearEditorial(EditorialDTO editorial){

@@ -4,16 +4,17 @@ import com.example.backend.dto.AutorDTO;
 import com.example.backend.model.Autor;
 import com.example.backend.repository.AutorRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AutorServiceImpl implements AutorService {
-    @Autowired
-    AutorRepository autorRepository;
+    private final AutorRepository autorRepository;
+
+    public AutorServiceImpl(AutorRepository autorRepository) {
+        this.autorRepository = autorRepository;
+    }
 
     @Override
     public Autor crearAutor(AutorDTO autor){

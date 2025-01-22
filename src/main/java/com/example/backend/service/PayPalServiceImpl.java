@@ -15,7 +15,6 @@ import com.example.backend.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import lombok.RequiredArgsConstructor;
@@ -50,10 +49,11 @@ public class PayPalServiceImpl implements  PayPalService {
     private final OrdenRepository ordenRepository;
     private final LibroRepository libroRepository;
     private final DetalleOrdenRepository detalleOrdenRepository;
+
+    // Servicio para enviar correos electrónicos
     private final EmailService emailService;
 
-    @Autowired
-    private Executor taskExecutor; // Permitiría ejecutar el envío de correos en un hilo separado (asincrono)
+    private final Executor taskExecutor; // Permitiría ejecutar el envío de correos en un hilo separado (asincrono)
 
     @Override
     @Transactional // Aseguramos de que toda la operación de guardar la orden y los detalles esté dentro de una transacción

@@ -7,19 +7,17 @@ import com.example.backend.model.Subcategoria;
 import com.example.backend.repository.CategoriaRepository;
 import com.example.backend.repository.SubcategoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class SubcategoriaServiceImpl implements SubcategoriaService {
-    @Autowired
-    SubcategoriaRepository subcategoriaRepository;
-
-    @Autowired
-    CategoriaRepository categoriaRepository;
+    private final SubcategoriaRepository subcategoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     @Override
     public Subcategoria crearSubcategoria(SubcategoriaDTO subcategoria){

@@ -5,7 +5,6 @@ import com.example.backend.exceptions.ResourceNotFoundException;
 import com.example.backend.model.Categoria;
 import com.example.backend.repository.CategoriaRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.Optional;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
-    @Autowired
-    CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
+
+    public CategoriaServiceImpl(CategoriaRepository categoriaRepository){
+        this.categoriaRepository = categoriaRepository;
+    }
 
     @Override
     public Categoria crearCategoria(CategoriaDTO categoria){

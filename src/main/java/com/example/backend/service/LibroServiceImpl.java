@@ -1,6 +1,5 @@
 package com.example.backend.service;
 
-import com.example.backend.dto.LibroBusquedaDTO;
 import com.example.backend.dto.LibroCardDTO;
 import com.example.backend.dto.LibroDTO;
 import com.example.backend.exceptions.ResourceNotFoundException;
@@ -8,7 +7,6 @@ import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,17 +15,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class LibroServiceImpl implements LibroService {
-    @Autowired
-    LibroRepository libroRepository;
+    private final LibroRepository libroRepository;
 
-    @Autowired
-    CategoriaRepository categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    @Autowired
-    EditorialRepository editorialRepository;
+    private final EditorialRepository editorialRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public LibroServiceImpl(LibroRepository libroRepository, CategoriaRepository categoriaRepository, EditorialRepository editorialRepository, ModelMapper modelMapper) {
+        this.libroRepository = libroRepository;
+        this.categoriaRepository = categoriaRepository;
+        this.editorialRepository = editorialRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Libro crearLibro(LibroDTO libroDTO){

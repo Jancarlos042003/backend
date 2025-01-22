@@ -18,7 +18,6 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -30,11 +29,14 @@ import java.util.List;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-    @Autowired
-    private DetalleOrdenRepository detalleOrdenRepository;
+    private final DetalleOrdenRepository detalleOrdenRepository;
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+
+    public EmailServiceImpl(DetalleOrdenRepository detalleOrdenRepository, JavaMailSender mailSender) {
+        this.detalleOrdenRepository = detalleOrdenRepository;
+        this.mailSender = mailSender;
+    }
 
     @Override
     public void enviarBoletaCompra(Orden orden, String emailDestino) {

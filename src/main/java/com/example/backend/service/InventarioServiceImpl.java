@@ -8,8 +8,8 @@ import com.example.backend.model.Libro;
 import com.example.backend.repository.InventarioRepository;
 import com.example.backend.repository.LibroRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,15 +19,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class InventarioServiceImpl implements InventarioService {
-    @Autowired
-    InventarioRepository inventarioRepository;
-
-    @Autowired
-    LibroRepository libroRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    private final InventarioRepository inventarioRepository;
+    private final LibroRepository libroRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<InventarioDTO> mostrarInventarios(){
