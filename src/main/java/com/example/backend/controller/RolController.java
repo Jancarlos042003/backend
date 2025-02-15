@@ -18,8 +18,8 @@ public class RolController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Rol>> mostrarRoles(){
-        return new ResponseEntity<>(rolService.mostrarRoles(), HttpStatus.OK);
+    public List<Rol> mostrarRoles(){
+        return rolService.mostrarRoles();
     }
 
     @PostMapping

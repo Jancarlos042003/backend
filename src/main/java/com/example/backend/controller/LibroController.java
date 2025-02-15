@@ -24,23 +24,23 @@ public class LibroController {
     }
 
     @GetMapping
-    public  ResponseEntity<List<LibroCardDTO>> mostrarLibros(){
-        return new ResponseEntity<>(libroService.mostrarLibros(), HttpStatus.OK);
+    public List<LibroCardDTO> mostrarLibros(){
+        return libroService.mostrarLibros();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Libro> mostrarLibro(@Min(1) @PathVariable Long id){
-        return new ResponseEntity<>(libroService.mostrarLibro(id), HttpStatus.OK);
+    public Libro mostrarLibro(@Min(1) @PathVariable Long id){
+        return libroService.mostrarLibro(id);
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<LibroCardDTO>> buscarLibrosPorCriterios(@RequestParam String termino){
-        return new ResponseEntity<>(libroService.buscarLibrosPorCriterios(termino), HttpStatus.OK);
+    public List<LibroCardDTO> buscarLibrosPorCriterios(@RequestParam String termino){
+        return libroService.buscarLibrosPorCriterios(termino);
     }
 
     @GetMapping("/categoria/{id}")
-    public ResponseEntity<List<LibroCardDTO>> mostrarLibrosPorCategoria(@PathVariable Long id){
-        return new ResponseEntity<>(libroService.obtenerLibrosPorCategoria(id), HttpStatus.OK);
+    public List<LibroCardDTO> mostrarLibrosPorCategoria(@PathVariable Long id){
+        return libroService.obtenerLibrosPorCategoria(id);
     }
 
     @PostMapping

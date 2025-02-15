@@ -23,8 +23,8 @@ public class SubcategoriaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Subcategoria>> mostrarSubcategorias(){
-        return new ResponseEntity<>(subcategoriaService.mostrarSubcategorias(), HttpStatus.OK);
+    public List<Subcategoria> mostrarSubcategorias(){
+        return subcategoriaService.mostrarSubcategorias();
     }
 
     @PostMapping

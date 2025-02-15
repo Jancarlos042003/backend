@@ -39,7 +39,7 @@ public class ReseniaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Set<Resenia>> mostrarReseniasPorLibro(@Min(1) @PathVariable Long id){
-        return new ResponseEntity<>(reseniaService.mostrarReseniaPorLibro(id), HttpStatus.OK);
+    public Set<Resenia> mostrarReseniasPorLibro(@Min(1) @PathVariable Long id){
+        return reseniaService.mostrarReseniaPorLibro(id);
     }
 }

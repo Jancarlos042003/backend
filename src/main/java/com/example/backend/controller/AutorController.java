@@ -23,8 +23,8 @@ public class AutorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Autor>> mostrarAutores(){
-        return new ResponseEntity<>(autorService.mostrarAutores(), HttpStatus.OK);
+    public List<Autor> mostrarAutores(){
+        return autorService.mostrarAutores();
     }
 
     @PostMapping

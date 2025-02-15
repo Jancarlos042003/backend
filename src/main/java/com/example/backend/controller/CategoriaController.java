@@ -23,13 +23,13 @@ public class CategoriaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> mostrarCategorias(){
-        return new ResponseEntity<>(categoriaService.mostrarCategorias(), HttpStatus.OK);
+    public List<Categoria> mostrarCategorias(){
+        return categoriaService.mostrarCategorias();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> mostrarCategoria(@PathVariable Long id){
-        return new ResponseEntity<>(categoriaService.mostrarCategoria(id), HttpStatus.OK);
+    public Categoria mostrarCategoria(@PathVariable Long id){
+        return categoriaService.mostrarCategoria(id);
     }
 
     @PostMapping

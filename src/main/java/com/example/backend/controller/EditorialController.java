@@ -23,8 +23,8 @@ public class EditorialController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Editorial>> mostrarEditoriales(){
-        return new ResponseEntity<>(editorialService.mostrarEditoriales(), HttpStatus.OK);
+    public List<Editorial> mostrarEditoriales(){
+        return editorialService.mostrarEditoriales();
     }
 
     @PostMapping

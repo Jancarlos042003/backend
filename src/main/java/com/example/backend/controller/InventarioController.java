@@ -18,13 +18,13 @@ public class InventarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<InventarioDTO>> mostrarInventarios(){
-        return new ResponseEntity<>(inventarioService.mostrarInventarios(), HttpStatus.OK);
+    public List<InventarioDTO> mostrarInventarios(){
+        return inventarioService.mostrarInventarios();
     }
 
     @GetMapping("/{termino}")
-    public ResponseEntity<List<InventarioDTO>> buscarInventarioPorCriterios(@PathVariable String termino){
-        return new ResponseEntity<>(inventarioService.buscarInventarioPorCriterios(termino), HttpStatus.OK);
+    public List<InventarioDTO> buscarInventarioPorCriterios(@PathVariable String termino){
+        return inventarioService.buscarInventarioPorCriterios(termino);
     }
 
     @PostMapping

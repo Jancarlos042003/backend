@@ -24,15 +24,14 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> mostrarUsuarios(){
-        return new ResponseEntity<>(usuarioService.mostrarUsuarios(), HttpStatus.OK);
+    public List<Usuario> mostrarUsuarios(){
+        return usuarioService.mostrarUsuarios();
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Usuario> mostrarUsuarioAutenticado(Authentication authentication) {
+    public Usuario mostrarUsuarioAutenticado(Authentication authentication) {
         // Llama al servicio para obtener el usuario autenticado
-        Usuario usuario = usuarioService.mostrarUsuarioAutenticado(authentication);
-        return new ResponseEntity<>(usuario, HttpStatus.OK);  // Devuelve el usuario autenticado en la respuesta
+        return usuarioService.mostrarUsuarioAutenticado(authentication);  // Devuelve el usuario autenticado en la respuesta
     }
 
     @PostMapping("/registrar")
