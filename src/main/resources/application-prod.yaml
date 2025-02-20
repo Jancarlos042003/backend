@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: backend
+
+  # DB MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${MYSQLPASSWORD}
+    url: jdbc:mysql://localhost:3306/tulibrofavorito
+    username: ${MYSQLUSER}
+
+  jackson:
+    date-format: yyyy-MM-
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: UTC
+
+  # JPA/Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  #CONFIG PARA EL ENVIO DE BOLETA POR CORREO
+  mail:
+    host: smtp.gmail.com
+    password: ${PASSWORD}
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: ${EMAIL}
+
+  # Configuracion de seguridad
+  security:
+    user:
+      name: ${SECURITY_USER:user}
+      password: ${SECURITY_PASSWORD:1234}
+
+  # NoHandlerFoundException configuration
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+# JWT Configuration
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY:srJiDMOXgnMoRSOgXIKqvnCONQiZruHdxD/1czMLXN0=}
+  time:
+    expiration: ${JWT_EXPIRATION:86400000}
+
+# Configuracion de logging
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG
+
+# PAYPAL
+paypal:
+  api:
+    base:
+      url: https://api-m.sandbox.paypal.com
+  client:
+    id: ${CLIENT_ID}
+  secret: ${SECRET}
+
+server:
+  error: # Configuracion de errores
+    include-binding-errors: always
+    include-message: always
+  port: ${PORT:8080}
